@@ -30,7 +30,11 @@
                         <td>
                             <label for="cmd">command</label>
                             <button class="go" id="btnSubmit">Execute Command &gt;</button>
-                            <input id="cmd" class="arguments" type="text" value="sort" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id='cmd_holder_1'>
+                            
                         </td>
                     </tr>
                     <tr>
@@ -39,24 +43,19 @@
                     <tr style="height: 9%">
                         <td>
                             <label for="arguments">parameters (1 per line)</label>
-                            <textarea id="arguments" class="arguments" >-t
-,
--k
-3
--n
--r</textarea>
+                            <textarea id="arguments" class="arguments" ></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td height="10px;">&nbsp;</td>
                     </tr>
+                    <tr>
+                        <td><button id='btnAddPipe'>Add pipe</button></td>
+                    </tr>
                     <tr style="height: 90%">
                         <td>
                             <label for="input">input</label><br>
-                            <textarea id="input" class="input fill">boo,*,23
-foo,*,32
-poo,*,3
-doo,*,2</textarea>
+                            <textarea id="input" class="input fill"></textarea>
                         </td>
                     </tr>
                 </table>
@@ -80,29 +79,6 @@ doo,*,2</textarea>
     </table>
     </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script>
-        $(function () {
-
-            var branch = 'master';
-
-            $('body').append($('<a href="https://github.com/ogt/webcommand-app/tree/'+branch+'"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>'));
-            $('body').append($('<h3>Unix sort as a web service</h3>'));
-            $('body').append($('<a href="https://github.com/ogt/webcommand-app">Check out the project home for details</p>'));
-        });
-        $('#btnSubmit').click(function () {
-            var args = $('#arguments').val().split('\n');
-            $.ajax({
-              url: '/'+$('#cmd').val() + '?' + args.map(function(a) { return 'args='+a;}).join('&') ,
-              type: 'POST',
-              data: $('#input').val()
-            }).done(function (data) { 
-              $('#output').val((data));
-            }).fail(function (arg1) { 
-              alert(JSON.stringify(arg1));
-            });
-            return false;
-        });
-
-    </script>
+    <script src='public/javascripts/main.js' type='text/javascript'></script>
 </body>
 </html>

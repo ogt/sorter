@@ -11,6 +11,10 @@ app.get('/getCommands', cors(), function(req,res) {
     res.send(JSON.stringify(webCommand.getCommandList()));
 });
 
+app.get('/public/javascripts/main.js', function(req,res){
+    res.sendfile('public/javascripts/main.js');
+});
+
 app.get('/', function(req,res) {
     console.log(req.host);
     res.sendfile('index.html');
@@ -25,14 +29,12 @@ app.post('/*', function(req,res){
     args = [].concat(req.query.args),
     cStream= stream.through();
     if (!req.query.args) args = null;
-
     cStream.on('error', function(err) {
         console.error(err);
     });
     if(req.query.pipes){
         var pipes=[],
         curPipe;
-
         if(typeof (req.query.pipes)!=='string'){
             pipes=  req.query.pipes;
             curPipe=decodeURIComponent(pipes.shift());

@@ -7,7 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-      "test": "jshint index.js"
+      "hint": "jshint index.js",
+      "test":"tap ./test/*.js"
   },
   "dependencies": {
     "webcommand": "*",
