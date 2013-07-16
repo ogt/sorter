@@ -30,7 +30,7 @@ $(function () {
 
 $('#btnAddPipe').click(function () {
     webcommand.instructionCount++;
-    $('#btnAddPipe').parent().parent().before('<tr><td><input id="cmd_'+webcommand.instructionCount+'" class="arguments" type="text" value="sort" ></td></tr>');
+    $('#btnAddPipe').parent().parent().before('<tr><td><input id="cmd_'+webcommand.instructionCount+'" class="arguments" type="text" value="http://127.0.0.1:8000/cat" ></td></tr>');
     $('#btnAddPipe').parent().parent().before('<tr><td height="10px;">&nbsp;</td></tr>');
     $('#btnAddPipe').parent().parent().before('<tr style="height: 9%"><td><label for="arguments">parameters (1 per line)</label><textarea id="arguments_'+webcommand.instructionCount+'" class="arguments" ></textarea></td></tr>');
     $('#btnAddPipe').parent().parent().before('<tr><td height="10px;">&nbsp;</td></tr>');
