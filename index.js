@@ -1,7 +1,7 @@
 var express = require('express'),
-    cors = require('cors'),
-    webCommand = require('webcommand')(require('./commands')),
-    stream = require('event-stream');
+cors = require('cors'),
+webCommand = require('webcommand')(require('./commands')),
+stream = require('event-stream');
 var request = require('request');
 
 var port = process.env.PORT || 8000;
@@ -9,6 +9,10 @@ var app = express();
 app.use(cors());
 app.get('/getCommands', cors(), function(req,res) {
     res.send(JSON.stringify(webCommand.getCommandList()));
+});
+
+app.get('/public/javascripts/main.js', function(req,res){
+    res.sendfile('public/javascripts/main.js');
 });
 
 app.get('/', function(req,res) {
@@ -22,17 +26,15 @@ app.get('/test', function(req,res) {
 
 app.post('/*', function(req,res){
     var cmd = req.path.replace('/',''),
-        args = [].concat(req.query.args),
-        cStream= stream.through();
+    args = [].concat(req.query.args),
+    cStream= stream.through();
     if (!req.query.args) args = null;
-
     cStream.on('error', function(err) {
         console.error(err);
     });
     if(req.query.pipes){
         var pipes=[],
-            curPipe;
-        
+        curPipe;
         if(typeof (req.query.pipes)!=='string'){
             pipes=  req.query.pipes;
             curPipe=decodeURIComponent(pipes.shift());
@@ -42,8 +44,8 @@ app.post('/*', function(req,res){
         var urlPipes='';
         if(pipes.length){
             //if first arg in query string use ?
-            if(curPipe.indexOf('?')===-1) urlPipes= '?'
-            else urlPipes= '&';
+            if(curPipe.indexOf('?')===-1) {urlPipes= '?';}
+            else {urlPipes= '&';}
             urlPipes = urlPipes +pipes.map(function(pipe){return 'pipes='+encodeURIComponent(pipe);}).join('&');
         }
         var iStream= stream.through();
